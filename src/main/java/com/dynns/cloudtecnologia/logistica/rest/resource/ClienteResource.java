@@ -3,10 +3,8 @@ package com.dynns.cloudtecnologia.logistica.rest.resource;
 import com.dynns.cloudtecnologia.logistica.model.entity.Cliente;
 import com.dynns.cloudtecnologia.logistica.model.mapper.ClienteMapper;
 import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOCreate;
-import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOResource;
 import com.dynns.cloudtecnologia.logistica.service.impl.ClienteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -26,7 +24,7 @@ public class ClienteResource {
     private ClienteMapper clienteMapper;
 
     @PostMapping()
-    public ResponseEntity<ClienteDTOResource> salvar(@RequestBody @Valid ClienteDTOCreate clienteDTOCreate) {
+    public ResponseEntity<ClienteDTOCreate> salvar(@RequestBody @Valid ClienteDTOCreate clienteDTOCreate) {
         Cliente salvo = clienteService.salvar(clienteDTOCreate);
 
         URI location = ServletUriComponentsBuilder
@@ -35,7 +33,7 @@ public class ClienteResource {
                 .buildAndExpand(salvo.getId())
                 .toUri();
 
-        return ResponseEntity.created(location).body(clienteMapper.clienteToClienteDTOResource(salvo));
+        return ResponseEntity.created(location).body(clienteDTOCreate);
     }
 
 

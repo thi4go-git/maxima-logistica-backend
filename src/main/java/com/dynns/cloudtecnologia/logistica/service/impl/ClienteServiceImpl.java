@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
@@ -33,8 +34,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     @Transactional
     public Cliente salvar(ClienteDTOCreate clienteDTOCreate) {
-        System.out.println("TEste ");
-
+    
         Endereco enderecoViaCep = null;
         try {
             enderecoViaCep = viaCepClient.obterEndereco(clienteDTOCreate.getCep()).getBody();
@@ -51,5 +51,10 @@ public class ClienteServiceImpl implements ClienteService {
         clienteMapeado.setEndereco(enderecoSalvo);
 
         return clienteRepository.save(clienteMapeado);
+    }
+
+    @Override
+    public Optional<Cliente> buscarPeloCnpjOptional(String cnpj) {
+        return clienteRepository.findByCnpj(cnpj);
     }
 }
