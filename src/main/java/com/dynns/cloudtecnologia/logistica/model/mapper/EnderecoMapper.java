@@ -1,6 +1,8 @@
 package com.dynns.cloudtecnologia.logistica.model.mapper;
 
 import com.dynns.cloudtecnologia.logistica.model.entity.Cliente;
+import com.dynns.cloudtecnologia.logistica.model.entity.Endereco;
+import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOCreate;
 import com.dynns.cloudtecnologia.logistica.rest.dto.EnderecoDTOResource;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,5 +16,9 @@ public class EnderecoMapper {
 
     public EnderecoDTOResource clienteToEnderecoDTOResource(Cliente cliente) {
         return modelMapper.map(cliente.getEndereco(), EnderecoDTOResource.class);
+    }
+
+    public Endereco clienteDTOCreateToEndereco(ClienteDTOCreate clienteDTOCreate) {
+        return modelMapper.map(clienteDTOCreate, Endereco.class);
     }
 }

@@ -23,6 +23,19 @@ public class ClienteDTOCreate {
     @Pattern(regexp = "\\d{8}", message = "O cep deve conter apenas números.")
     private String cep;
 
+    @NotBlank(message = "O logradouro deve ser informado.")
+    private String logradouro;
+
+    @NotBlank(message = "O bairro deve ser informado.")
+    private String bairro;
+
+    @NotBlank(message = "A localidade deve ser informada.")
+    private String localidade;
+
+    @NotBlank(message = "A uf deve ser informada.")
+    @Size(min =2 , max = 2, message = "A uf 2 deve conter 2 caracteres.")
+    private String uf;
+
     @NotBlank(message = "O Campo latitude não poderá ser nulo.")
     private String latitude;
 

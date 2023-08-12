@@ -12,6 +12,7 @@ public class ClienteDTOResourceList {
     private String logradouro;
     private String bairro;
     private String localidade;
+    private String uf;
     private String latitude;
     private String longitude;
 }

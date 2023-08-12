@@ -1,20 +1,18 @@
 package com.dynns.cloudtecnologia.logistica.rest.resource;
 
 import com.dynns.cloudtecnologia.logistica.model.entity.Cliente;
-import com.dynns.cloudtecnologia.logistica.model.entity.Endereco;
 import com.dynns.cloudtecnologia.logistica.model.mapper.ClienteMapper;
 import com.dynns.cloudtecnologia.logistica.model.mapper.EnderecoMapper;
-import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOCreate;
-import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOResource;
-import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOResourceList;
-import com.dynns.cloudtecnologia.logistica.rest.dto.EnderecoDTOResource;
+import com.dynns.cloudtecnologia.logistica.rest.dto.*;
 import com.dynns.cloudtecnologia.logistica.service.impl.ClienteServiceImpl;
+import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.net.URI;
 
 
@@ -45,16 +43,25 @@ public class ClienteResource {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<ClienteDTOResource> buscarPeloId(@PathVariable("id") Long id) {
-        Cliente cliente = clienteService.buscarPeloId(id);
+    @GetMapping("/{cnpj}")
+    public ResponseEntity<ClienteDTOResource> buscarPeloCnpj(@PathVariable("cnpj") @NotBlank(message = "cnpj é obrigatório!") final String cnpj) {
+        Cliente cliente = clienteService.buscarPeloCnpj(cnpj);
         return ResponseEntity.ok().body(clienteMapper.clienteToClienteDTOResource(cliente));
     }
 
-    @GetMapping("/{id}/endereco")
-    public ResponseEntity<EnderecoDTOResource> buscarEnderecoCliente(@PathVariable("id") Long id) {
-        Cliente cliente = clienteService.buscarPeloId(id);
+    @GetMapping("/{cnpj}/endereco")
+    public ResponseEntity<EnderecoDTOResource> buscarEnderecoCliente(@PathVariable("cnpj") @NotBlank(message = "cnpj é obrigatório!") final String cnpj) {
+        Cliente cliente = clienteService.buscarPeloCnpj(cnpj);
         return ResponseEntity.ok().body(enderecoMapper.clienteToEnderecoDTOResource(cliente));
+    }
+
+    @PutMapping("/{cnpj}")
+    public ResponseEntity<ClienteDTOResourceList> atualizarCliente(
+            @PathVariable("cnpj") @NotBlank(message = "cnpj é obrigatório!") final String cnpj,
+            @Valid @RequestBody final ClienteDTOUpdate clienteDTOUpdate) {
+
+        Cliente clienteAtualizado = clienteService.atualizarCliente(clienteDTOUpdate, cnpj);
+        return ResponseEntity.ok().body(clienteMapper.clienteToClienteDTOResourceList(clienteAtualizado));
     }
 
 
