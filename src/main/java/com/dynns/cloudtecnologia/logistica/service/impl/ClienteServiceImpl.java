@@ -37,6 +37,8 @@ public class ClienteServiceImpl implements ClienteService {
     private ViaCepClient viaCepClient;
 
 
+    private static final String MSG_CLIENTE_NOTFOUND = "Cliente não encontrado com CNPJ ";
+
     @Override
     @Transactional
     public Cliente salvar(ClienteDTOCreate clienteDTOCreate) {
@@ -59,7 +61,7 @@ public class ClienteServiceImpl implements ClienteService {
         return clienteRepository.
                 findByCnpj(cnpj)
                 .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado com CNPJ " + cnpj));
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOTFOUND + cnpj));
 
     }
 
@@ -67,23 +69,36 @@ public class ClienteServiceImpl implements ClienteService {
     @Transactional
     public Cliente atualizarCliente(ClienteDTOUpdate clienteDTOUpdate, String cnpj) {
 
-        Cliente clienteAchado = clienteRepository.
+        Cliente clienteAtualizar = clienteRepository.
                 findByCnpj(cnpj)
                 .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado com CNPJ " + cnpj));
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOTFOUND + cnpj));
 
-        clienteAchado.setNome(clienteDTOUpdate.getNome());
-        clienteAchado.getEndereco().setCep(clienteDTOUpdate.getCep());
-        clienteAchado.getEndereco().setLogradouro(clienteDTOUpdate.getLogradouro());
-        clienteAchado.getEndereco().setBairro(clienteDTOUpdate.getBairro());
-        clienteAchado.getEndereco().setLocalidade(clienteDTOUpdate.getLocalidade());
-        clienteAchado.getEndereco().setUf(clienteDTOUpdate.getUf());
-        clienteAchado.getEndereco().setLatitude(clienteDTOUpdate.getLatitude());
-        clienteAchado.getEndereco().setLongitude(clienteDTOUpdate.getLongitude());
+        clienteAtualizar.setNome(clienteDTOUpdate.getNome());
+        clienteAtualizar.getEndereco().setCep(clienteDTOUpdate.getCep());
+        clienteAtualizar.getEndereco().setLogradouro(clienteDTOUpdate.getLogradouro());
+        clienteAtualizar.getEndereco().setBairro(clienteDTOUpdate.getBairro());
+        clienteAtualizar.getEndereco().setLocalidade(clienteDTOUpdate.getLocalidade());
+        clienteAtualizar.getEndereco().setUf(clienteDTOUpdate.getUf());
+        clienteAtualizar.getEndereco().setLatitude(clienteDTOUpdate.getLatitude());
+        clienteAtualizar.getEndereco().setLongitude(clienteDTOUpdate.getLongitude());
 
-        System.out.println(clienteAchado);
+        return clienteAtualizar;
+    }
 
-        return clienteAchado;
+    @Override
+    @Transactional
+    public void deletarClientePeloCnpj(String cnpj) {
+
+        Cliente clienteDeletar = clienteRepository.
+                findByCnpj(cnpj)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOTFOUND + cnpj));
+
+        Long idEnderecoDeletar = clienteDeletar.getEndereco().getId();
+        clienteRepository.delete(clienteDeletar);
+        enderecoService.deletarEndereco(idEnderecoDeletar);
+
     }
 
 

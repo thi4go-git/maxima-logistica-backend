@@ -5,7 +5,6 @@ import com.dynns.cloudtecnologia.logistica.model.mapper.ClienteMapper;
 import com.dynns.cloudtecnologia.logistica.model.mapper.EnderecoMapper;
 import com.dynns.cloudtecnologia.logistica.rest.dto.*;
 import com.dynns.cloudtecnologia.logistica.service.impl.ClienteServiceImpl;
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +12,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.net.URI;
 
 
@@ -62,6 +63,15 @@ public class ClienteResource {
 
         Cliente clienteAtualizado = clienteService.atualizarCliente(clienteDTOUpdate, cnpj);
         return ResponseEntity.ok().body(clienteMapper.clienteToClienteDTOResourceList(clienteAtualizado));
+    }
+
+    @DeleteMapping("/{cnpj}")
+    public ResponseEntity<Void> deletarClientePeloCnpj(
+            @PathVariable("cnpj")
+            @NotBlank(message = "cnpj é obrigatório!") final String cnpj) {
+
+        clienteService.deletarClientePeloCnpj(cnpj);
+        return ResponseEntity.noContent().build();
     }
 
 

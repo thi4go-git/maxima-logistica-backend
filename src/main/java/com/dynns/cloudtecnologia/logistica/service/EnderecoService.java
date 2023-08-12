@@ -6,4 +6,6 @@ import com.dynns.cloudtecnologia.logistica.model.entity.Endereco;
 public interface EnderecoService {
     Endereco salvar(Endereco endereco);
     void atualizarEndereco (Long id, Endereco enderecoAtualizado);
+
+    void deletarEndereco (Long id);
 }

@@ -21,7 +21,6 @@ public class Cliente {
 
     @OneToOne
     @JoinColumn(name = "id_endereco")
-    //@JsonIgnore
     private Endereco endereco;
 
 }

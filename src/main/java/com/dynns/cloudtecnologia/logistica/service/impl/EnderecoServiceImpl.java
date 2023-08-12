@@ -1,5 +1,6 @@
 package com.dynns.cloudtecnologia.logistica.service.impl;
 
+import com.dynns.cloudtecnologia.logistica.model.entity.Cliente;
 import com.dynns.cloudtecnologia.logistica.model.entity.Endereco;
 import com.dynns.cloudtecnologia.logistica.model.repository.EnderecoRepository;
 import com.dynns.cloudtecnologia.logistica.service.EnderecoService;
@@ -22,6 +23,8 @@ public class EnderecoServiceImpl implements EnderecoService {
         return enderecoRepository.save(endereco);
     }
 
+    private static final String MSG_ENDERECO_NOTFOUND = "Endereco não encontrado com ID: ";
+
     @Override
     @Transactional
     public void atualizarEndereco(Long idEndereco, Endereco enderecoAtualizado) {
@@ -39,6 +42,19 @@ public class EnderecoServiceImpl implements EnderecoService {
                     return enderecoRepository.save(enderecoAchado);
                 })
                 .orElseThrow(() ->
-                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Endereco não encontrado com ID: " + idEndereco));
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_ENDERECO_NOTFOUND + idEndereco));
+    }
+
+    @Override
+    @Transactional
+    public void deletarEndereco(Long idEndereco) {
+
+        Endereco enderecoDeletar = enderecoRepository.
+                findById(idEndereco)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_ENDERECO_NOTFOUND + idEndereco));
+        
+        enderecoRepository.delete(enderecoDeletar);
+
     }
 }
