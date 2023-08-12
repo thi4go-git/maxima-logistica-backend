@@ -4,7 +4,7 @@ import com.dynns.cloudtecnologia.logistica.anottation.CNPJunico;
 import lombok.Data;
 
 import javax.validation.constraints.*;
-import java.math.BigDecimal;
+
 
 @Data
 public class ClienteDTOCreate {
@@ -23,9 +23,9 @@ public class ClienteDTOCreate {
     @Pattern(regexp = "\\d{8}", message = "O cep deve conter apenas números.")
     private String cep;
 
-    @NotNull(message = "O Campo latitude não poderá ser nulo.")
-    private BigDecimal latitude;
+    @NotBlank(message = "O Campo latitude não poderá ser nulo.")
+    private String latitude;
 
-    @NotNull(message = "O Campo longitude não poderá ser nulo.")
-    private BigDecimal longitude;
+    @NotBlank(message = "O Campo longitude não poderá ser nulo.")
+    private String longitude;
 }

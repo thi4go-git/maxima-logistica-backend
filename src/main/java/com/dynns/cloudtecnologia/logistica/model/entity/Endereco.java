@@ -3,7 +3,6 @@ package com.dynns.cloudtecnologia.logistica.model.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -44,8 +43,8 @@ public class Endereco {
     private String siafi;
 
     @Column(nullable = false)
-    private BigDecimal latitude;
+    private String latitude;
 
     @Column(nullable = false)
-    private BigDecimal longitude;
+    private String longitude;
 }

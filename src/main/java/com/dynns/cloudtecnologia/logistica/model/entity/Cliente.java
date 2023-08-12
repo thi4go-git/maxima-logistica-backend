@@ -1,10 +1,9 @@
 package com.dynns.cloudtecnologia.logistica.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
+
 
 @Data
 @Entity
@@ -22,7 +21,7 @@ public class Cliente {
 
     @OneToOne
     @JoinColumn(name = "id_endereco")
-    @JsonIgnore
+    //@JsonIgnore
     private Endereco endereco;
 
 }

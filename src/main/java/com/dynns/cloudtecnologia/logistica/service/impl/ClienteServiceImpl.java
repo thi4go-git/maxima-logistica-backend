@@ -10,13 +10,17 @@ import com.dynns.cloudtecnologia.logistica.rest.client.ViaCepClient;
 import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOCreate;
 import com.dynns.cloudtecnologia.logistica.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
+
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -34,7 +38,7 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     @Transactional
     public Cliente salvar(ClienteDTOCreate clienteDTOCreate) {
-    
+
         Endereco enderecoViaCep = null;
         try {
             enderecoViaCep = viaCepClient.obterEndereco(clienteDTOCreate.getCep()).getBody();
@@ -57,4 +61,13 @@ public class ClienteServiceImpl implements ClienteService {
     public Optional<Cliente> buscarPeloCnpjOptional(String cnpj) {
         return clienteRepository.findByCnpj(cnpj);
     }
+
+    @Override
+    public Cliente buscarPeloId(Long id) {
+        return clienteRepository.
+                findById(id)
+                .orElseThrow(() ->
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado com ID " + id));
+    }
+
 }
