@@ -1,0 +1,5 @@
+spring:
+  profiles:
+    active: production
+  application:
+    name: Sistema para cadastro de clientes BACKEND
