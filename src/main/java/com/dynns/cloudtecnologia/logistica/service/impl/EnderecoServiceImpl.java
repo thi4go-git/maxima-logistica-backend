@@ -1,7 +1,10 @@
 package com.dynns.cloudtecnologia.logistica.service.impl;
 
+import com.dynns.cloudtecnologia.logistica.exception.GeralException;
 import com.dynns.cloudtecnologia.logistica.model.entity.Endereco;
 import com.dynns.cloudtecnologia.logistica.model.repository.EnderecoRepository;
+import com.dynns.cloudtecnologia.logistica.rest.client.ViaCepClient;
+import com.dynns.cloudtecnologia.logistica.rest.dto.EnderecoDTOViacep;
 import com.dynns.cloudtecnologia.logistica.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,9 @@ public class EnderecoServiceImpl implements EnderecoService {
 
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private ViaCepClient viaCepClient;
 
     @Override
     public Endereco salvar(Endereco endereco) {
@@ -55,5 +61,15 @@ public class EnderecoServiceImpl implements EnderecoService {
 
         enderecoRepository.delete(enderecoDeletar);
 
+    }
+
+    @Override
+    public EnderecoDTOViacep obterEnderecoViaCep(String cep) {
+        try {
+            EnderecoDTOViacep endereco = viaCepClient.obterEndereco(cep).getBody();
+            return endereco;
+        } catch (Exception e) {
+            throw new GeralException("Erro ao obter endereço do VIA CEP ");
+        }
     }
 }
