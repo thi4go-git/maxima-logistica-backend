@@ -48,7 +48,8 @@
             **/anottation/**, **/enums/**,
             MaximaLogisticaBackendApplication.java,
             MaximaLogisticaBackendApplication,
-            src/main/java/com/dynns/cloudtecnologia/logistica/MaximaLogisticaBackendApplication.java
+            src/main/java/com/dynns/cloudtecnologia/logistica/MaximaLogisticaBackendApplication.java,
+            **/MaximaLogisticaBackendApplication*.java
 
         </sonar.exclusions>
     </properties>
