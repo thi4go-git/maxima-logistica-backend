@@ -25,7 +25,7 @@ pipeline {
            }
            steps {
                withSonarQubeEnv('SONAR'){
-                   sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=maxima-logistica-backend -Dsonar.host.url=http://cloudtecnologia.dynns.com:9000 -Dsonar.login=60064720daace2d5578d96607f0e4ee9b4f3b98b -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/entity/**,**/dto/**,**/enums/**,**/repository/**,MavenWrapperDownloader.java,MaximaLogisticaBackendApplication.java"
+                   sh "${scannerHome}/bin/sonar-scanner -e -Dsonar.projectKey=maxima-logistica-backend -Dsonar.host.url=http://cloudtecnologia.dynns.com:9000 -Dsonar.login=60064720daace2d5578d96607f0e4ee9b4f3b98b -Dsonar.java.binaries=target -Dsonar.coverage.exclusions=**/.mvn/**,**/src/test/**,**/entity/**,**/dto/**,**/enums/**,**/repository/**,MavenWrapperDownloader.java,**/src/main/java/com/dynns/cloudtecnologia/logistica/MaximaLogisticaBackendApplication.java"
                }
            }
       }
