@@ -38,14 +38,16 @@
             **/model/**,**/rest/dto/**, **/entity/**,
             **/enum/**, **/enums/**,
             **/anottation/**, **/enums/**,
-            **/MaximaLogisticaBackendApplication.java,
+            MaximaLogisticaBackendApplication.java,
+            MaximaLogisticaBackendApplication,
             src/main/java/com/dynns/cloudtecnologia/logistica/MaximaLogisticaBackendApplication.java
         </sonar.coverage.exclusions>
         <sonar.exclusions>
             **/model/**,**/rest/dto/**, **/entity/**,
             **/enum/**, **/enums/**,
             **/anottation/**, **/enums/**,
-            **/MaximaLogisticaBackendApplication.java,
+            MaximaLogisticaBackendApplication.java,
+            MaximaLogisticaBackendApplication,
             src/main/java/com/dynns/cloudtecnologia/logistica/MaximaLogisticaBackendApplication.java
 
         </sonar.exclusions>
@@ -146,8 +148,7 @@
                 <configuration>
                     <excludes>
                         <exclude>
-                            **/.mvn/**,**/src/test/**,**/entity/**,**/rest/dto/**,**/enums/**,MavenWrapperDownloader.java,
-                            **/MaximaLogisticaBackendApplication.java
+                            **/.mvn/**,**/src/test/**,**/entity/**,**/rest/dto/**,**/enums/**,MavenWrapperDownloader.java
                         </exclude>
                     </excludes>
                 </configuration>
