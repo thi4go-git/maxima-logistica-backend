@@ -6,14 +6,13 @@ import com.dynns.cloudtecnologia.logistica.model.mapper.EnderecoMapper;
 import com.dynns.cloudtecnologia.logistica.rest.dto.*;
 import com.dynns.cloudtecnologia.logistica.service.impl.ClienteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.net.URI;
 
 
@@ -74,5 +73,16 @@ public class ClienteResource {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping
+    public ResponseEntity<Page<Cliente>> listarTodosPaginadoFilter(
+            @RequestParam(value = "page", defaultValue = "0") Integer page,
+            @RequestParam(value = "size", defaultValue = "10") Integer size,
+            @RequestBody ClienteDTOResourceList clienteFilter
+    ) {
+
+        Page<Cliente> clientePageFilter = clienteService.listarTodosPageFilter(page, size, clienteFilter);
+
+        return ResponseEntity.ok().body(clientePageFilter);
+    }
 
 }

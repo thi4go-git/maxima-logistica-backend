@@ -1,6 +1,5 @@
 package com.dynns.cloudtecnologia.logistica.service.impl;
 
-import com.dynns.cloudtecnologia.logistica.model.entity.Cliente;
 import com.dynns.cloudtecnologia.logistica.model.entity.Endereco;
 import com.dynns.cloudtecnologia.logistica.model.repository.EnderecoRepository;
 import com.dynns.cloudtecnologia.logistica.service.EnderecoService;
@@ -10,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
+
 
 @Service
 public class EnderecoServiceImpl implements EnderecoService {
@@ -53,7 +52,7 @@ public class EnderecoServiceImpl implements EnderecoService {
                 findById(idEndereco)
                 .orElseThrow(() ->
                         new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_ENDERECO_NOTFOUND + idEndereco));
-        
+
         enderecoRepository.delete(enderecoDeletar);
 
     }

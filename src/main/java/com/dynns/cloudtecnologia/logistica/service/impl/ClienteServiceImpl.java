@@ -7,9 +7,11 @@ import com.dynns.cloudtecnologia.logistica.model.mapper.EnderecoMapper;
 import com.dynns.cloudtecnologia.logistica.model.repository.ClienteRepository;
 import com.dynns.cloudtecnologia.logistica.rest.client.ViaCepClient;
 import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOCreate;
+import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOResourceList;
 import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOUpdate;
 import com.dynns.cloudtecnologia.logistica.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -101,5 +103,23 @@ public class ClienteServiceImpl implements ClienteService {
 
     }
 
+    @Override
+    public Page<Cliente> listarTodosPageFilter(int page, int size, ClienteDTOResourceList clienteFiltro) {
+
+        ExampleMatcher matcher = ExampleMatcher
+                .matching()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+
+        Example<Cliente> example = Example.of(clienteMapper.clienteDTOResourceListToCliente(clienteFiltro), matcher);
+
+        PageRequest pageRequest = PageRequest.of(page, size,
+                Sort.Direction.ASC,
+                "id");
+
+        return clienteRepository.findAll(example, pageRequest);
+
+    }
 
 }

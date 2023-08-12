@@ -40,5 +40,8 @@ public class ClienteMapper {
         return modelMapper.map(cliente, ClienteDTOResource.class);
     }
 
+    public Cliente clienteDTOResourceListToCliente(ClienteDTOResourceList clienteDTOResourceList) {
+        return modelMapper.map(clienteDTOResourceList, Cliente.class);
+    }
 
 }
