@@ -66,10 +66,9 @@ public class EnderecoServiceImpl implements EnderecoService {
     @Override
     public EnderecoDTOViacep obterEnderecoViaCep(String cep) {
         try {
-            EnderecoDTOViacep endereco = viaCepClient.obterEndereco(cep).getBody();
-            return endereco;
+            return viaCepClient.obterEndereco(cep).getBody();
         } catch (Exception e) {
-            throw new GeralException("Erro ao obter endereço do VIA CEP ");
+            throw new GeralException("Erro ao obter endereço VIA CEP ");
         }
     }
 }

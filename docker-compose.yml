@@ -1,0 +1,46 @@
+version: "3"
+services:
+  maxima-logistica-backend:
+    container_name: maxima-logistica-backend
+    image: maxima-logistica-backend:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - JAR_FILE=target/maxima-logistica-backend-1.0.0.jar
+        - CONTEXT=alvara-backend
+    ports:
+      - 8070:8080
+    restart: always
+    depends_on:
+      - banco-logistica
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://banco-logistica:5432/logistica
+      SPRING_DATASOURCE_USERNAME: logistica
+      SPRING_DATASOURCE_PASSWORD: logistica
+      SPRING_JPA_DATABASE-PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      SPRING_HIBERNATE_FORMAT-SQL: "true"
+      SPRING_HIBERNATE_SHOW-SQL: "false"
+      SPRING_HIBERNATE_DDL-AUTO: update
+    networks:
+      - maxima-logistica
+
+  banco-logistica:
+    container_name: BANCO-LOGISTICA
+    image: postgres
+    environment:
+      - POSTGRES_USER=logistica
+      - POSTGRES_PASSWORD=logistica
+    restart: always
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+    networks:
+      - maxima-logistica
+
+networks:
+  maxima-logistica:
+
+volumes:
+  postgresql:
+  postgresql_data:
