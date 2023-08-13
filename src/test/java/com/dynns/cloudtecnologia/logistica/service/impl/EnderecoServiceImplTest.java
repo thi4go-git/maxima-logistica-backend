@@ -125,6 +125,11 @@ class EnderecoServiceImplTest {
         when(viaCepClient.obterEndereco(any())).thenReturn(responseEntity);
 
         LOG.info(responseEntity.getBody().toString());
+
+        assertDoesNotThrow(() ->
+                enderecoService.obterEnderecoViaCep(CEP)
+        );
+
         assertNotNull(responseEntity.getBody());
         assertEquals(CEP, responseEntity.getBody().getCep());
         assertEquals(LOGRADOURO, responseEntity.getBody().getLogradouro());
