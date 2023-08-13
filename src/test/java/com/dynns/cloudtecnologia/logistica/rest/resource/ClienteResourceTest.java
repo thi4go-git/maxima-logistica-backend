@@ -36,6 +36,7 @@ class ClienteResourceTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(ClienteResourceTest.class);
 
+    private static final String URL_PATH = "/api/clientes";
     private static final String CNPJ_VALIDO = "12345678901234";
     private static final String NOME_VALIDO = "Aparecidinho Eletro";
 
@@ -51,7 +52,7 @@ class ClienteResourceTest {
                 .contentType(ContentType.JSON)
                 .body(dtoCreate)
                 .when()
-                .post("/api/clientes")
+                .post(URL_PATH)
                 .then()
                 .extract()
                 .response();
@@ -85,7 +86,7 @@ class ClienteResourceTest {
                 .contentType(ContentType.JSON)
                 .body(dtoCreate)
                 .when()
-                .post("/api/clientes")
+                .post(URL_PATH)
                 .then()
                 .extract()
                 .response();
@@ -111,7 +112,7 @@ class ClienteResourceTest {
                 .contentType(ContentType.JSON)
                 .body(dtoCreate)
                 .when()
-                .post("/api/clientes")
+                .post(URL_PATH)
                 .then()
                 .extract()
                 .response();
@@ -145,7 +146,7 @@ class ClienteResourceTest {
                 .contentType(ContentType.JSON)
                 .pathParam("cnpj", CNPJ_VALIDO)
                 .when()
-                .get("/api/clientes/{cnpj}")
+                .get(URL_PATH + "/{cnpj}")
                 .then()
                 .extract()
                 .response();
@@ -170,7 +171,7 @@ class ClienteResourceTest {
                 .contentType(ContentType.JSON)
                 .pathParam("cnpj", cnpjInvalido)
                 .when()
-                .get("/api/clientes/{cnpj}")
+                .get(URL_PATH + "/{cnpj}")
                 .then()
                 .extract()
                 .response();
@@ -194,7 +195,7 @@ class ClienteResourceTest {
                 .contentType(ContentType.JSON)
                 .pathParam("cnpj", CNPJ_VALIDO)
                 .when()
-                .get("/api/clientes/{cnpj}/endereco")
+                .get(URL_PATH + "/{cnpj}/endereco")
                 .then()
                 .extract()
                 .response();

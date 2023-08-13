@@ -37,12 +37,14 @@
         <sonar.coverage.exclusions>
             **/model/**,**/rest/dto/**, **/entity/**,
             **/enum/**, **/enums/**,
-            **/anottation/**, **/enums/**
+            **/anottation/**, **/enums/**,
+            **/mapper/**, **/exception/**, **/config/**
         </sonar.coverage.exclusions>
         <sonar.exclusions>
             **/model/**,**/rest/dto/**, **/entity/**,
             **/enum/**, **/enums/**,
-            **/anottation/**, **/enums/**
+            **/anottation/**, **/enums/**,
+            **/mapper/**, **/exception/**, **/config/**
         </sonar.exclusions>
     </properties>
 
