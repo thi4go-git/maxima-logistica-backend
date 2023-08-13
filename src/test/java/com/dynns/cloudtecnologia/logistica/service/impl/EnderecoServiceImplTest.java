@@ -2,14 +2,16 @@ package com.dynns.cloudtecnologia.logistica.service.impl;
 
 import com.dynns.cloudtecnologia.logistica.model.entity.Endereco;
 import com.dynns.cloudtecnologia.logistica.model.repository.EnderecoRepository;
+import com.dynns.cloudtecnologia.logistica.rest.client.ViaCepClient;
+import com.dynns.cloudtecnologia.logistica.rest.dto.EnderecoDTOViacep;
 import org.junit.jupiter.api.*;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Optional;
@@ -32,6 +34,20 @@ class EnderecoServiceImplTest {
 
     @Mock
     private EnderecoRepository enderecoRepository;
+
+    @Mock
+    private ViaCepClient viaCepClient;
+
+    private static final String CEP = "74913-330";
+    private static final String LOGRADOURO = "Rua teste";
+    private static final String COMPLEMENTO = "CASA 1";
+    private static final String BAIRRO = "BAIRRO";
+    private static final String LOCALIDADE = "LOCALIDADE";
+    private static final String IBGE = "IBGE";
+    private static final String GIA = "GIA";
+    private static final String DDD = "DDD";
+    private static final String SIAFI = "SIAFI";
+
 
     @Test
     @DisplayName("Deve Salvar Endereço com sucesso.")
@@ -101,6 +117,26 @@ class EnderecoServiceImplTest {
 
     @Test
     void obterEnderecoViaCep() {
+
+        EnderecoDTOViacep viaCep = getEnderecoViaCep();
+
+        ResponseEntity<EnderecoDTOViacep> responseEntity = new ResponseEntity<>(viaCep, HttpStatus.valueOf(500));
+
+        when(viaCepClient.obterEndereco(any())).thenReturn(responseEntity);
+
+        LOG.info(responseEntity.getBody().toString());
+        assertNotNull(responseEntity.getBody());
+        assertEquals(CEP, responseEntity.getBody().getCep());
+        assertEquals(LOGRADOURO, responseEntity.getBody().getLogradouro());
+        assertEquals(COMPLEMENTO, responseEntity.getBody().getComplemento());
+        assertEquals(BAIRRO, responseEntity.getBody().getBairro());
+        assertEquals(LOCALIDADE, responseEntity.getBody().getLocalidade());
+        assertEquals(IBGE, responseEntity.getBody().getIbge());
+        assertEquals(GIA, responseEntity.getBody().getGia());
+        assertEquals(DDD, responseEntity.getBody().getDdd());
+        assertEquals(SIAFI, responseEntity.getBody().getSiafi());
+
+
     }
 
 
@@ -117,4 +153,18 @@ class EnderecoServiceImplTest {
         return endereco;
     }
 
+    private EnderecoDTOViacep getEnderecoViaCep() {
+        EnderecoDTOViacep viaCep = new EnderecoDTOViacep();
+        viaCep.setCep(CEP);
+        viaCep.setLogradouro(LOGRADOURO);
+        viaCep.setComplemento(COMPLEMENTO);
+        viaCep.setBairro(BAIRRO);
+        viaCep.setLocalidade(LOCALIDADE);
+        viaCep.setIbge(IBGE);
+        viaCep.setGia(GIA);
+        viaCep.setDdd(DDD);
+        viaCep.setSiafi(SIAFI);
+
+        return viaCep;
+    }
 }
