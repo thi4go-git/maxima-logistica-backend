@@ -4,15 +4,12 @@ import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOCreate;
 import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOResourceList;
 import com.dynns.cloudtecnologia.logistica.rest.dto.ClienteDTOUpdate;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.*;
-import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ActiveProfiles;
@@ -275,6 +272,28 @@ class ClienteResourceTest {
 
         assertEquals("1", resposta.jsonPath().getString("numberOfElements"));
         assertEquals("15", resposta.jsonPath().getString("size"));
+
+    }
+
+    @Test
+    @DisplayName("Deve deletarClientePeloCnpj")
+    @Order(9)
+    void deletarClientePeloCnpj() {
+
+        var resposta = given()
+                .contentType(ContentType.JSON)
+                .pathParam("cnpj", CNPJ_VALIDO)
+                .when()
+                .delete("/api/clientes/{cnpj}")
+                .then()
+                .extract()
+                .response();
+
+        String responseBody = resposta.getBody().asString();
+        LOG.info(responseBody);
+
+        assertNotNull(responseBody);
+        assertEquals(HttpStatus.SC_NO_CONTENT, resposta.statusCode());
 
     }
 
