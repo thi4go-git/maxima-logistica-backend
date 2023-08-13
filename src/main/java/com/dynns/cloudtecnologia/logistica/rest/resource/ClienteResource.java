@@ -63,16 +63,7 @@ public class ClienteResource {
         Cliente clienteAtualizado = clienteService.atualizarCliente(clienteDTOUpdate, cnpj);
         return ResponseEntity.ok().body(clienteMapper.clienteToClienteDTOResourceList(clienteAtualizado));
     }
-
-    @DeleteMapping("/{cnpj}")
-    public ResponseEntity<Void> deletarClientePeloCnpj(
-            @PathVariable("cnpj")
-            @NotBlank(message = "cnpj é obrigatório!") final String cnpj) {
-
-        clienteService.deletarClientePeloCnpj(cnpj);
-        return ResponseEntity.noContent().build();
-    }
-
+  
     @GetMapping
     public ResponseEntity<Page<Cliente>> listarTodosPaginadoFilter(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
@@ -83,6 +74,15 @@ public class ClienteResource {
         Page<Cliente> clientePageFilter = clienteService.listarTodosPageFilter(page, size, clienteFilter);
 
         return ResponseEntity.ok().body(clientePageFilter);
+    }
+
+    @DeleteMapping("/{cnpj}")
+    public ResponseEntity<Void> deletarClientePeloCnpj(
+            @PathVariable("cnpj")
+            @NotBlank(message = "cnpj é obrigatório!") final String cnpj) {
+
+        clienteService.deletarClientePeloCnpj(cnpj);
+        return ResponseEntity.noContent().build();
     }
 
 }
