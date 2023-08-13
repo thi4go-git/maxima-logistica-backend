@@ -142,7 +142,8 @@
                     <excludes>
                         <exclude>
                             **/.mvn/**,**/src/test/**,**/entity/**,**/rest/dto/**,
-                            **/enums/**,MavenWrapperDownloader.java
+                            **/enums/**,MavenWrapperDownloader.java,
+                            **/mapper/**, **/exception/**, **/config/**
                         </exclude>
                     </excludes>
                 </configuration>

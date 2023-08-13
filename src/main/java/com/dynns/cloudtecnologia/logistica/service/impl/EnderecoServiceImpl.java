@@ -17,9 +17,11 @@ import javax.transaction.Transactional;
 @Service
 public class EnderecoServiceImpl implements EnderecoService {
 
+
+    private static final String MSG_ENDERECO_NOTFOUND = "Endereco não encontrado com ID: ";
+
     @Autowired
     private EnderecoRepository enderecoRepository;
-
     @Autowired
     private ViaCepClient viaCepClient;
 
@@ -27,8 +29,6 @@ public class EnderecoServiceImpl implements EnderecoService {
     public Endereco salvar(Endereco endereco) {
         return enderecoRepository.save(endereco);
     }
-
-    private static final String MSG_ENDERECO_NOTFOUND = "Endereco não encontrado com ID: ";
 
     @Override
     @Transactional
