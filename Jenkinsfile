@@ -37,6 +37,19 @@ pipeline {
                }
            }
       }
+      stage('Deploy'){
+           steps {
+               sh 'docker-compose build'
+               sh 'docker-compose up -d'
+           }
+      }
+      stage('Limpando Cache'){
+           steps {
+               sleep(10)
+               sh 'docker system prune -f'
+               sh 'docker ps'
+           }
+      }
    }
 
    post{
