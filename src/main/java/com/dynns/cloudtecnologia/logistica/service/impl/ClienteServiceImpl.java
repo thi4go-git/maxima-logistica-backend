@@ -108,31 +108,31 @@ public class ClienteServiceImpl implements ClienteService {
     public Page<Cliente> listarTodosPageFilter(int page, int size, ClienteDTOResourceList clienteFiltro) {
 
         ClienteDTOResourceList filter = new ClienteDTOResourceList();
-        if (Objects.nonNull(filter.getNome()) && !filter.getNome().equals("")) {
+        if (Objects.nonNull(filter.getNome())) {
             filter.setNome(filter.getNome());
         }
-        if (Objects.nonNull(clienteFiltro.getCnpj()) && !filter.getCnpj().equals("")) {
+        if (Objects.nonNull(clienteFiltro.getCnpj())) {
             filter.setCnpj(clienteFiltro.getCnpj());
         }
-        if (Objects.nonNull(clienteFiltro.getCep()) && !filter.getCep().equals("")) {
+        if (Objects.nonNull(clienteFiltro.getCep())) {
             filter.setCep(clienteFiltro.getCep());
         }
-        if (Objects.nonNull(clienteFiltro.getLogradouro()) && !filter.getLogradouro().equals("")) {
+        if (Objects.nonNull(clienteFiltro.getLogradouro())) {
             filter.setLogradouro(clienteFiltro.getLogradouro());
         }
-        if (Objects.nonNull(clienteFiltro.getBairro()) && !filter.getBairro().equals("")) {
+        if (Objects.nonNull(clienteFiltro.getBairro())) {
             filter.setBairro(clienteFiltro.getBairro());
         }
-        if (Objects.nonNull(clienteFiltro.getLocalidade()) && !filter.getLocalidade().equals("")) {
+        if (Objects.nonNull(clienteFiltro.getLocalidade())) {
             filter.setLocalidade(clienteFiltro.getLocalidade());
         }
-        if (Objects.nonNull(clienteFiltro.getUf()) && !filter.getUf().equals("")) {
+        if (Objects.nonNull(clienteFiltro.getUf())) {
             filter.setUf(clienteFiltro.getUf());
         }
-        if (Objects.nonNull(clienteFiltro.getLatitude()) && !filter.getLatitude().equals("")) {
+        if (Objects.nonNull(clienteFiltro.getLatitude())) {
             filter.setLatitude(clienteFiltro.getLatitude());
         }
-        if (Objects.nonNull(clienteFiltro.getLongitude()) && !filter.getLatitude().equals("")) {
+        if (Objects.nonNull(clienteFiltro.getLongitude())) {
             filter.setLongitude(clienteFiltro.getLongitude());
         }
 
