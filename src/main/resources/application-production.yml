@@ -12,3 +12,10 @@ spring:
         show_sql: false
     hibernate:
       ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://cloudtecnologia.dynns.com:8180/realms/CLOUD_TECNOLOGIA
+          client-id: maxima-logistica
+          client-secret: 17DmswLn5mwQGsmbRqjxLA3c8U0c4lN0

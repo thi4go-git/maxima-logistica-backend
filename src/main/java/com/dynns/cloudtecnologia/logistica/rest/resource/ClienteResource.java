@@ -5,6 +5,9 @@ import com.dynns.cloudtecnologia.logistica.model.mapper.ClienteMapper;
 import com.dynns.cloudtecnologia.logistica.model.mapper.EnderecoMapper;
 import com.dynns.cloudtecnologia.logistica.rest.dto.*;
 import com.dynns.cloudtecnologia.logistica.service.impl.ClienteServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +32,15 @@ public class ClienteResource {
     @Autowired
     private EnderecoMapper enderecoMapper;
 
+    private static final String CLIENTE_NAO_LOCALIZADO = "Cliente não localizado!";
+    private static final String SERVER_ERROR = "Erro interno do servidor!";
+
     @PostMapping
+    @Operation(summary = "Criar Cliente", description = "Este endpoint Cria um novo Cliente.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Cliente criado!"),
+            @ApiResponse(responseCode = "500", description = SERVER_ERROR)
+    })
     public ResponseEntity<ClienteDTOResourceList> salvar(@RequestBody @Valid ClienteDTOCreate clienteDTOCreate) {
         Cliente salvo = clienteService.salvar(clienteDTOCreate);
 
@@ -44,18 +55,36 @@ public class ClienteResource {
 
 
     @GetMapping("/{cnpj}")
+    @Operation(summary = "Buscar cliente pelo CNPJ", description = "Este endpoint busca cliente pelo CNPJ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Cliente Localizado!"),
+            @ApiResponse(responseCode = "404", description = CLIENTE_NAO_LOCALIZADO),
+            @ApiResponse(responseCode = "500", description = SERVER_ERROR)
+    })
     public ResponseEntity<ClienteDTOResource> buscarPeloCnpj(@PathVariable("cnpj") @NotBlank(message = "cnpj é obrigatório!") final String cnpj) {
         Cliente cliente = clienteService.buscarPeloCnpj(cnpj);
         return ResponseEntity.ok().body(clienteMapper.clienteToClienteDTOResource(cliente));
     }
 
     @GetMapping("/{cnpj}/endereco")
+    @Operation(summary = "Buscar endereço cliente pelo CNPJ", description = "Este endpoint busca endereço cliente pelo CNPJ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Consulta realizada!"),
+            @ApiResponse(responseCode = "404", description = CLIENTE_NAO_LOCALIZADO),
+            @ApiResponse(responseCode = "500", description = SERVER_ERROR)
+    })
     public ResponseEntity<EnderecoDTOResource> buscarEnderecoCliente(@PathVariable("cnpj") @NotBlank(message = "cnpj é obrigatório!") final String cnpj) {
         Cliente cliente = clienteService.buscarPeloCnpj(cnpj);
         return ResponseEntity.ok().body(enderecoMapper.clienteToEnderecoDTOResource(cliente));
     }
 
     @PutMapping("/{cnpj}")
+    @Operation(summary = "Atualizar cliente", description = "Este endpoint Atualiza cliente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Atualização Concluída!"),
+            @ApiResponse(responseCode = "404", description = CLIENTE_NAO_LOCALIZADO),
+            @ApiResponse(responseCode = "500", description = SERVER_ERROR)
+    })
     public ResponseEntity<ClienteDTOResourceList> atualizarCliente(
             @PathVariable("cnpj") @NotBlank(message = "cnpj é obrigatório!") final String cnpj,
             @Valid @RequestBody final ClienteDTOUpdate clienteDTOUpdate) {
@@ -63,8 +92,12 @@ public class ClienteResource {
         Cliente clienteAtualizado = clienteService.atualizarCliente(clienteDTOUpdate, cnpj);
         return ResponseEntity.ok().body(clienteMapper.clienteToClienteDTOResourceList(clienteAtualizado));
     }
-  
+
     @GetMapping
+    @Operation(summary = "Listar com paginação + Filtros", description = "Este endpoint Lista Paginandodo + Filtros")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "500", description = SERVER_ERROR)
+    })
     public ResponseEntity<Page<Cliente>> listarTodosPaginadoFilter(
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "10") Integer size,
@@ -77,6 +110,12 @@ public class ClienteResource {
     }
 
     @DeleteMapping("/{cnpj}")
+    @Operation(summary = "Deletar Cliente", description = "Este endpoint deleta Cliente")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Cliente deletado!"),
+            @ApiResponse(responseCode = "404", description = CLIENTE_NAO_LOCALIZADO),
+            @ApiResponse(responseCode = "500", description = SERVER_ERROR)
+    })
     public ResponseEntity<Void> deletarClientePeloCnpj(
             @PathVariable("cnpj")
             @NotBlank(message = "cnpj é obrigatório!") final String cnpj) {
