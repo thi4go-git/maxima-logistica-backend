@@ -297,6 +297,27 @@ class ClienteResourceTest {
         assertEquals(HttpStatus.SC_NO_CONTENT, resposta.statusCode());
 
     }
+    @Test
+    @DisplayName("Não Deve deletarClientePeloCnpj Not Found")
+    @Order(10)
+    void naoDeletarClientePeloCnpj() {
+
+        var resposta = given()
+                .contentType(ContentType.JSON)
+                .pathParam("cnpj", CNPJ_VALIDO+"9")
+                .when()
+                .delete("/api/clientes/{cnpj}")
+                .then()
+                .extract()
+                .response();
+
+        String responseBody = resposta.getBody().asString();
+        LOG.info(responseBody);
+
+        assertNotNull(responseBody);
+        assertEquals(HttpStatus.SC_NOT_FOUND, resposta.statusCode());
+
+    }
 
     private ClienteDTOCreate getClienteDTOCreate() {
         ClienteDTOCreate dto = new ClienteDTOCreate();
