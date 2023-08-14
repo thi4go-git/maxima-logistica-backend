@@ -78,7 +78,7 @@ public class ClienteServiceImpl implements ClienteService {
                         new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOTFOUND + cnpj));
 
         clienteAtualizar.setNome(clienteDTOUpdate.getNome());
-        clienteAtualizar.getEndereco().setCep(clienteDTOUpdate.getCep());
+        clienteAtualizar.getEndereco().setCep(clienteDTOUpdate.getCep().replace("-",""));
         clienteAtualizar.getEndereco().setLogradouro(clienteDTOUpdate.getLogradouro());
         clienteAtualizar.getEndereco().setBairro(clienteDTOUpdate.getBairro());
         clienteAtualizar.getEndereco().setLocalidade(clienteDTOUpdate.getLocalidade());
