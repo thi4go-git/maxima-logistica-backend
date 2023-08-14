@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -106,13 +107,43 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public Page<Cliente> listarTodosPageFilter(int page, int size, ClienteDTOResourceList clienteFiltro) {
 
+        ClienteDTOResourceList filter = new ClienteDTOResourceList();
+        if (Objects.nonNull(filter.getNome())) {
+            filter.setNome(filter.getNome());
+        }
+        if (Objects.nonNull(clienteFiltro.getCnpj())) {
+            filter.setCnpj(clienteFiltro.getCnpj());
+        }
+        if (Objects.nonNull(clienteFiltro.getCep())) {
+            filter.setCep(clienteFiltro.getCep());
+        }
+        if (Objects.nonNull(clienteFiltro.getLogradouro())) {
+            filter.setLogradouro(clienteFiltro.getLogradouro());
+        }
+        if (Objects.nonNull(clienteFiltro.getBairro())) {
+            filter.setBairro(clienteFiltro.getBairro());
+        }
+        if (Objects.nonNull(clienteFiltro.getLocalidade())) {
+            filter.setLocalidade(clienteFiltro.getLocalidade());
+        }
+        if (Objects.nonNull(clienteFiltro.getUf())) {
+            filter.setUf(clienteFiltro.getUf());
+        }
+        if (Objects.nonNull(clienteFiltro.getLatitude())) {
+            filter.setLatitude(clienteFiltro.getLatitude());
+        }
+        if (Objects.nonNull(clienteFiltro.getLongitude())) {
+            filter.setLongitude(clienteFiltro.getLongitude());
+        }
+
+
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
                 .withIgnoreCase()
                 .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
 
 
-        Example<Cliente> example = Example.of(clienteMapper.clienteDTOResourceListToCliente(clienteFiltro), matcher);
+        Example<Cliente> example = Example.of(clienteMapper.clienteDTOResourceListToCliente(filter), matcher);
 
         PageRequest pageRequest = PageRequest.of(page, size,
                 Sort.Direction.ASC,

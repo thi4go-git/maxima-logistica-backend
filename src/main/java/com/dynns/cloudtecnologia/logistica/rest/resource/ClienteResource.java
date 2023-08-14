@@ -21,6 +21,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("api/clientes")
+@CrossOrigin("*")
 public class ClienteResource {
 
     @Autowired
@@ -93,7 +94,7 @@ public class ClienteResource {
         return ResponseEntity.ok().body(clienteMapper.clienteToClienteDTOResourceList(clienteAtualizado));
     }
 
-    @GetMapping
+    @PostMapping("/filter")
     @Operation(summary = "Listar com paginação + Filtros", description = "Este endpoint Lista Paginandodo + Filtros")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "500", description = SERVER_ERROR)
