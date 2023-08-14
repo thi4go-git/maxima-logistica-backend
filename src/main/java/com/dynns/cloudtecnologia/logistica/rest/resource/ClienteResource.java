@@ -13,7 +13,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.net.URI;
@@ -62,9 +61,9 @@ public class ClienteResource {
             @ApiResponse(responseCode = "404", description = CLIENTE_NAO_LOCALIZADO),
             @ApiResponse(responseCode = "500", description = SERVER_ERROR)
     })
-    public ResponseEntity<ClienteDTOResource> buscarPeloCnpj(@PathVariable("cnpj") @NotBlank(message = "cnpj é obrigatório!") final String cnpj) {
+    public ResponseEntity<ClienteDTOResourceList> buscarPeloCnpj(@PathVariable("cnpj") @NotBlank(message = "cnpj é obrigatório!") final String cnpj) {
         Cliente cliente = clienteService.buscarPeloCnpj(cnpj);
-        return ResponseEntity.ok().body(clienteMapper.clienteToClienteDTOResource(cliente));
+        return ResponseEntity.ok().body(clienteMapper.clienteToClienteDTOResourceList(cliente));
     }
 
     @GetMapping("/{cnpj}/endereco")

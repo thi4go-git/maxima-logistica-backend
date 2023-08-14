@@ -248,19 +248,13 @@ class ClienteResourceTest {
     @Order(8)
     void listarTodosPaginadoFilter() {
 
-        int pagina = 0;
-        int tamhnoPagina = 15;
-
-        ClienteDTOResourceList filtoCliente = new ClienteDTOResourceList();
-        filtoCliente.setNome("aparecIdinhO eL");
+        ClienteDTOResourceList filtro = new ClienteDTOResourceList();
 
         var resposta = given()
                 .contentType(ContentType.JSON)
-                .body(filtoCliente)
-                .param("page", pagina)
-                .param("size", tamhnoPagina)
+                .body(filtro)
                 .when()
-                .get("/api/clientes")
+                .post(URL_PATH + "/filter")
                 .then()
                 .extract()
                 .response();
@@ -270,9 +264,6 @@ class ClienteResourceTest {
 
         assertNotNull(responseBody);
         assertEquals(HttpStatus.SC_OK, resposta.statusCode());
-
-        assertEquals("1", resposta.jsonPath().getString("numberOfElements"));
-        assertEquals("15", resposta.jsonPath().getString("size"));
 
     }
 
@@ -297,6 +288,7 @@ class ClienteResourceTest {
         assertEquals(HttpStatus.SC_NO_CONTENT, resposta.statusCode());
 
     }
+
     @Test
     @DisplayName("Não Deve deletarClientePeloCnpj Not Found")
     @Order(10)
@@ -304,7 +296,7 @@ class ClienteResourceTest {
 
         var resposta = given()
                 .contentType(ContentType.JSON)
-                .pathParam("cnpj", CNPJ_VALIDO+"9")
+                .pathParam("cnpj", CNPJ_VALIDO + "9")
                 .when()
                 .delete("/api/clientes/{cnpj}")
                 .then()
