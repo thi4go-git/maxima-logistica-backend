@@ -78,7 +78,7 @@ public class ClienteServiceImpl implements ClienteService {
                         new ResponseStatusException(HttpStatus.NOT_FOUND, MSG_CLIENTE_NOTFOUND + cnpj));
 
         clienteAtualizar.setNome(clienteDTOUpdate.getNome());
-        clienteAtualizar.getEndereco().setCep(clienteDTOUpdate.getCep().replace("-",""));
+        clienteAtualizar.getEndereco().setCep(clienteDTOUpdate.getCep().replace("-", ""));
         clienteAtualizar.getEndereco().setLogradouro(clienteDTOUpdate.getLogradouro());
         clienteAtualizar.getEndereco().setBairro(clienteDTOUpdate.getBairro());
         clienteAtualizar.getEndereco().setLocalidade(clienteDTOUpdate.getLocalidade());
@@ -108,31 +108,31 @@ public class ClienteServiceImpl implements ClienteService {
     public Page<Cliente> listarTodosPageFilter(int page, int size, ClienteDTOResourceList clienteFiltro) {
 
         ClienteDTOResourceList filter = new ClienteDTOResourceList();
-        if (Objects.nonNull(filter.getNome())) {
+        if (Objects.nonNull(filter.getNome()) && !filter.getNome().equals("")) {
             filter.setNome(filter.getNome());
         }
-        if (Objects.nonNull(clienteFiltro.getCnpj())) {
+        if (Objects.nonNull(clienteFiltro.getCnpj()) && !filter.getCnpj().equals("")) {
             filter.setCnpj(clienteFiltro.getCnpj());
         }
-        if (Objects.nonNull(clienteFiltro.getCep())) {
+        if (Objects.nonNull(clienteFiltro.getCep()) && !filter.getCep().equals("")) {
             filter.setCep(clienteFiltro.getCep());
         }
-        if (Objects.nonNull(clienteFiltro.getLogradouro())) {
+        if (Objects.nonNull(clienteFiltro.getLogradouro()) && !filter.getLogradouro().equals("")) {
             filter.setLogradouro(clienteFiltro.getLogradouro());
         }
-        if (Objects.nonNull(clienteFiltro.getBairro())) {
+        if (Objects.nonNull(clienteFiltro.getBairro()) && !filter.getBairro().equals("")) {
             filter.setBairro(clienteFiltro.getBairro());
         }
-        if (Objects.nonNull(clienteFiltro.getLocalidade())) {
+        if (Objects.nonNull(clienteFiltro.getLocalidade()) && !filter.getLocalidade().equals("")) {
             filter.setLocalidade(clienteFiltro.getLocalidade());
         }
-        if (Objects.nonNull(clienteFiltro.getUf())) {
+        if (Objects.nonNull(clienteFiltro.getUf()) && !filter.getUf().equals("")) {
             filter.setUf(clienteFiltro.getUf());
         }
-        if (Objects.nonNull(clienteFiltro.getLatitude())) {
+        if (Objects.nonNull(clienteFiltro.getLatitude()) && !filter.getLatitude().equals("")) {
             filter.setLatitude(clienteFiltro.getLatitude());
         }
-        if (Objects.nonNull(clienteFiltro.getLongitude())) {
+        if (Objects.nonNull(clienteFiltro.getLongitude()) && !filter.getLatitude().equals("")) {
             filter.setLongitude(clienteFiltro.getLongitude());
         }
 
