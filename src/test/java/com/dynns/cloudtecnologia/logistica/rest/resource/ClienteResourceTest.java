@@ -125,7 +125,7 @@ class ClienteResourceTest {
 
         assertTrue(responseBody.contains("O Campo latitude não pode ser nulo."));
         assertTrue(responseBody.contains("O nome deverá ser informado."));
-        assertTrue(responseBody.contains("A uf deverá ser informada."));
+        assertTrue(responseBody.contains("A UF deverá ser informada."));
         assertTrue(responseBody.contains("O bairro deverá ser informado."));
         assertTrue(responseBody.contains("O cep deverá ser informado."));
         assertTrue(responseBody.contains("O Campo longitude não pode ser nulo."));
