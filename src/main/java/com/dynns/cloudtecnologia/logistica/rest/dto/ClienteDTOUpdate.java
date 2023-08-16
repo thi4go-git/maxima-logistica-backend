@@ -28,8 +28,9 @@ public class ClienteDTOUpdate {
     @NotBlank(message = "A localidade é Obrigatória")
     private String localidade;
 
-    @NotBlank(message = "A uf é Obrigatória")
-    @Size(min = 2, max = 2, message = "A uf 2 deve conter 2 caracteres.")
+    @NotBlank(message = "A UF é Obrigatória")
+    @Size(min = 2, max = 2, message = "A UF 2 deve conter 2 caracteres.")
+    @Pattern(regexp = "[A-Za-z]{2}", message = "A UF deve conter apenas letras.")
     private String uf;
 
     @NotBlank(message = "A latitude é Obrigatória")

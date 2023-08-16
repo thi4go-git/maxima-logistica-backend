@@ -20,7 +20,7 @@ public class OpenApiConfig {
                                 .email("thi4go19@gmail.com")
                                 .url("https://www.linkedin.com/in/thiago-melo-84246a149")
                         )
-                        .version("1.0.0"));
+                        .version("16/08/2023"));
 
     }
 

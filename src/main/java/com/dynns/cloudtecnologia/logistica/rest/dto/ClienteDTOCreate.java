@@ -32,8 +32,9 @@ public class ClienteDTOCreate {
     @NotBlank(message = "A localidade deverá ser informada.")
     private String localidade;
 
-    @NotBlank(message = "A uf deverá ser informada.")
-    @Size(min =2 , max = 2, message = "A uf 2 deverá conter 2 caracteres.")
+    @NotBlank(message = "A UF deverá ser informada.")
+    @Size(min =2 , max = 2, message = "A UF 2 deverá conter 2 caracteres.")
+    @Pattern(regexp = "[A-Za-z]{2}", message = "A UF deve conter apenas letras.")
     private String uf;
 
     @NotBlank(message = "O Campo latitude não pode ser nulo.")

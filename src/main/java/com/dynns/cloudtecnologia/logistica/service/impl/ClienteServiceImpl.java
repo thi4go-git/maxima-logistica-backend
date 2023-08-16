@@ -108,34 +108,39 @@ public class ClienteServiceImpl implements ClienteService {
     public Page<Cliente> listarTodosPageFilter(int page, int size, ClienteDTOResourceList clienteFiltro) {
 
         ClienteDTOResourceList filter = new ClienteDTOResourceList();
-        if (Objects.nonNull(filter.getNome())) {
-            filter.setNome(filter.getNome());
+        if (Objects.nonNull(clienteFiltro.getNome())) {
+            filter.setNome(clienteFiltro.getNome().trim());
         }
         if (Objects.nonNull(clienteFiltro.getCnpj())) {
-            filter.setCnpj(clienteFiltro.getCnpj());
+            filter.setCnpj(clienteFiltro.getCnpj()
+                    .replace(".","")
+                    .replace("/","")
+                    .replace("-","").trim());
         }
         if (Objects.nonNull(clienteFiltro.getCep())) {
-            filter.setCep(clienteFiltro.getCep());
+            filter.setCep(clienteFiltro.getCep().trim());
         }
         if (Objects.nonNull(clienteFiltro.getLogradouro())) {
-            filter.setLogradouro(clienteFiltro.getLogradouro());
+            filter.setLogradouro(clienteFiltro.getLogradouro().trim());
         }
         if (Objects.nonNull(clienteFiltro.getBairro())) {
-            filter.setBairro(clienteFiltro.getBairro());
+            filter.setBairro(clienteFiltro.getBairro().trim());
         }
         if (Objects.nonNull(clienteFiltro.getLocalidade())) {
-            filter.setLocalidade(clienteFiltro.getLocalidade());
+            filter.setLocalidade(clienteFiltro.getLocalidade().trim());
         }
         if (Objects.nonNull(clienteFiltro.getUf())) {
-            filter.setUf(clienteFiltro.getUf());
+            filter.setUf(clienteFiltro.getUf().trim());
         }
         if (Objects.nonNull(clienteFiltro.getLatitude())) {
-            filter.setLatitude(clienteFiltro.getLatitude());
+            filter.setLatitude(clienteFiltro.getLatitude().trim());
         }
         if (Objects.nonNull(clienteFiltro.getLongitude())) {
-            filter.setLongitude(clienteFiltro.getLongitude());
+            filter.setLongitude(clienteFiltro.getLongitude().trim());
         }
 
+
+        System.out.println(filter.toString());
 
         ExampleMatcher matcher = ExampleMatcher
                 .matching()
